@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import ControlPanel from "./components/ControlPanel";
+import WeatherDashboard from "./components/WeatherDashboard";
 
 export default function App() {
   const [value, onChangeText] = useState("Useless Placeholder");
@@ -44,8 +46,11 @@ export default function App() {
     },
   ];
   return (
-    <View>
-      <Text>wprowadz miaaasto</Text>
+    <View style={mainStyles.container}>
+      <WeatherDashboard />
+      <ControlPanel />
+
+      {/* <Text>wprowadz miaaasto</Text>
       <TextInput
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
         onChangeText={(text) => onChangeText(text)}
@@ -57,7 +62,14 @@ export default function App() {
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-      />
+      /> */}
     </View>
   );
 }
+
+const mainStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+  },
+});
