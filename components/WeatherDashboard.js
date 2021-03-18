@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ImageBackground,
   Text,
@@ -6,24 +6,36 @@ import {
   StyleSheet,
   ToastAndroid,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { findCityWeatherInfo } from "../reducers/weather";
 
 const WeatherDashboard = () => {
+  const dispatch = useDispatch();
   const image = {
     uri: "https://ak.picdn.net/shutterstock/videos/26398718/thumb/1.jpg",
   };
   const cityData = useSelector((state) => state.cityData);
+  const cityWeather = useSelector((state) => state.cityWeatherInfo);
 
-  const showToast = () => {
-    ToastAndroid.show(
+  //toast error message
+  const showErrorMessage = () => {
+    ToastAndroid.showWithGravityAndOffset(
       "The city was not found. Try again",
-      ToastAndroid.LONG,
-      ToastAndroid.TOP
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+      0,
+      110
     );
   };
 
   console.log(cityData);
-  cityData.error ? showToast() : "";
+  useEffect(() => {
+    cityData.cityId == " " || cityData.error
+      ? showErrorMessage()
+      : dispatch(findCityWeatherInfo(cityData.cityId));
+  }, []);
+
+  //
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.image}>
@@ -46,6 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
+    alignItems: "center",
   },
   text: {
     color: "#fff",

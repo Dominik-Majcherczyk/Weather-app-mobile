@@ -10,3 +10,10 @@ export const fetchCityError = (error) => {
     payload: { error: error.error },
   };
 };
+
+export const fetchCityWeatherInfo = (cityWeatherInfo) => {
+  return {
+    type: "GET_CITY_WEATHER",
+    payload: cityWeatherInfo,
+  };
+};

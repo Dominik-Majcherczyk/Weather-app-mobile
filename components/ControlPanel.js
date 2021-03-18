@@ -5,9 +5,9 @@ import { useDispatch } from "react-redux";
 import { findCity } from "../reducers/city";
 
 const ControlPanel = () => {
+  const dispatch = useDispatch();
   const [input, setInput] = useState();
 
-  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <TextInput
