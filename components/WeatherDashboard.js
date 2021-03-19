@@ -32,18 +32,14 @@ const WeatherDashboard = () => {
   useEffect(() => {
     dispatch(findCityWeatherInfo(cityData.cityId));
   }, [cityData.cityId]);
-
-  useEffect(() => {
-    console.log("ladys and gentlemans we got them~!");
-    setCityWeatherInfo(cityWeather);
-    console.log(cityWeatherInfo.IsDayTime);
-  }, [cityWeather]);
+  console.log(cityWeather);
+  console.log(cityData);
   //
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.image}>
         <Text style={styles.text}>{cityData.cityName}</Text>
-        <Text style={styles.text}>{cityWeatherInfo.IsDayTime}</Text>
+        <Text style={styles.text}>{cityWeather.localObservationDateTime}</Text>
       </ImageBackground>
     </View>
   );

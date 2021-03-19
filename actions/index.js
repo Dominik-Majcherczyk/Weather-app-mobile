@@ -14,6 +14,10 @@ export const fetchCityError = (error) => {
 export const fetchCityWeatherInfo = (cityWeatherInfo) => {
   return {
     type: "GET_CITY_WEATHER",
-    payload: cityWeatherInfo,
+    payload: {
+      isDayTime: cityWeatherInfo.IsDayTime,
+      localObservationDateTime: cityWeatherInfo.LocalObservationDateTime,
+      temperature: cityWeatherInfo.Temperature,
+    },
   };
 };
