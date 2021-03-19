@@ -8,13 +8,14 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { findCityWeatherInfo } from "../reducers/weather";
+import dayImg from "../img/day.png";
+import nightImg from "../img/night.png";
 
 const WeatherDashboard = () => {
   const dispatch = useDispatch();
-  const image = {
+  const defaultImage = {
     uri: "https://ak.picdn.net/shutterstock/videos/26398718/thumb/1.jpg",
   };
-  const [cityWeatherInfo, setCityWeatherInfo] = useState({ IsDayTime: "" });
   const cityData = useSelector((state) => state.cityData);
   const cityWeather = useSelector((state) => state.cityWeatherInfo);
 
@@ -32,12 +33,17 @@ const WeatherDashboard = () => {
   useEffect(() => {
     dispatch(findCityWeatherInfo(cityData.cityId));
   }, [cityData.cityId]);
+  // data logs
   console.log(cityWeather);
   console.log(cityData);
   //
+
   return (
     <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image}>
+      <ImageBackground
+        source={cityWeather.isDayTime == true ? dayImg : nightImg}
+        style={styles.image}
+      >
         <Text style={styles.text}>{cityData.cityName}</Text>
         <Text style={styles.text}>{cityWeather.localObservationDateTime}</Text>
       </ImageBackground>

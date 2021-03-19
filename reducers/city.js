@@ -7,9 +7,8 @@ initialState = {
 const cityReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_CITY":
-      //console.log(action.payload);
+      console.log(action.payload);
       return {
-        ...state,
         cityName: action.payload.cityName,
         cityId: action.payload.cityId,
         error: false,
@@ -23,7 +22,7 @@ const cityReducer = (state = initialState, action) => {
 
 export const findCity = (city) => async (dispatch) => {
   await fetch(
-    `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=IBlxYAzVjiLPMh36fO92RSpGIOaJj9IY&q=${city}`
+    `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=lxxucFd3EEaDSpxcFbTVyROFKL3tWxsG&q=${city}`
   )
     .then((res) => res.json())
     .then((data) =>
