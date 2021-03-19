@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   Text,
@@ -14,6 +14,7 @@ const WeatherDashboard = () => {
   const image = {
     uri: "https://ak.picdn.net/shutterstock/videos/26398718/thumb/1.jpg",
   };
+  const [cityWeatherInfo, setCityWeatherInfo] = useState({ IsDayTime: "" });
   const cityData = useSelector((state) => state.cityData);
   const cityWeather = useSelector((state) => state.cityWeatherInfo);
 
@@ -27,20 +28,22 @@ const WeatherDashboard = () => {
       110
     );
   };
-
-  console.log(cityData);
+  cityData.error ? showErrorMessage() : "";
   useEffect(() => {
-    cityData.cityId == " " || cityData.error
-      ? showErrorMessage()
-      : dispatch(findCityWeatherInfo(cityData.cityId));
-  }, []);
+    dispatch(findCityWeatherInfo(cityData.cityId));
+  }, [cityData.cityId]);
 
+  useEffect(() => {
+    console.log("ladys and gentlemans we got them~!");
+    setCityWeatherInfo(cityWeather);
+    console.log(cityWeatherInfo.IsDayTime);
+  }, [cityWeather]);
   //
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.image}>
         <Text style={styles.text}>{cityData.cityName}</Text>
-        <Text style={styles.text}>{cityData.cityId}</Text>
+        <Text style={styles.text}>{cityWeatherInfo.IsDayTime}</Text>
       </ImageBackground>
     </View>
   );
