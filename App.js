@@ -12,24 +12,6 @@ import WeatherDashboard from "./components/WeatherDashboard";
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default function App() {
-  // function getCity(value) {
-  //   fetch(
-  //     "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=lxxucFd3EEaDSpxcFbTVyROFKL3tWxsG&q=Katowice"
-  //   ).then(function (response) {
-  //     if (response.status !== 200) {
-  //       console.log(
-  //         "Looks like there was a problem. Status Code: " + response.status
-  //       );
-  //       return;
-  //     }
-  //     // Examine the text in the response
-  //     response.json().then(function (data) {
-  //       console.log(data[0].LocalizedName);
-  //       setCity(data[0].LocalizedName);
-  //     });
-  //   });
-  // }
-
   return (
     <Provider store={store}>
       <View style={mainStyles.container}>

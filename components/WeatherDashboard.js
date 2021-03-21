@@ -12,13 +12,10 @@ import dayImg from "../img/day.png";
 import nightImg from "../img/night.png";
 
 const WeatherDashboard = () => {
-  const dispatch = useDispatch();
-  const defaultImage = {
-    uri: "https://ak.picdn.net/shutterstock/videos/26398718/thumb/1.jpg",
-  };
   const cityData = useSelector((state) => state.cityData);
   const cityWeather = useSelector((state) => state.cityWeatherInfo);
 
+  const dispatch = useDispatch();
   //toast error message
   const showErrorMessage = () => {
     ToastAndroid.showWithGravityAndOffset(
@@ -29,10 +26,15 @@ const WeatherDashboard = () => {
       110
     );
   };
+
+  //render error when cant find city name
   cityData.error ? showErrorMessage() : "";
+
+  //render new city info every time new city name is submited
   useEffect(() => {
     dispatch(findCityWeatherInfo(cityData.cityId));
   }, [cityData.cityId]);
+
   // data logs
   console.log(cityWeather);
   console.log(cityData);
@@ -41,7 +43,7 @@ const WeatherDashboard = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={cityWeather.isDayTime == true ? dayImg : nightImg}
+        source={cityWeather.isDayTime ? dayImg : nightImg}
         style={styles.image}
       >
         <Text style={styles.text}>{cityData.cityName}</Text>

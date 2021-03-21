@@ -8,13 +8,18 @@ const ControlPanel = () => {
   const dispatch = useDispatch();
   const [input, setInput] = useState();
 
+  function cityInputHandler() {
+    dispatch(findCity(input));
+    setInput("");
+  }
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         value={input}
         onChangeText={(text) => setInput(text)}
-        onEndEditing={() => dispatch(findCity(input))}
+        onEndEditing={() => cityInputHandler()}
       ></TextInput>
     </View>
   );
