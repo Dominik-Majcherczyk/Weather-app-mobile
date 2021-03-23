@@ -4,7 +4,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import { findCity } from "../reducers/city";
 
-const ControlPanel = () => {
+const Searching = () => {
   const dispatch = useDispatch();
   const [input, setInput] = useState();
 
@@ -25,7 +25,7 @@ const ControlPanel = () => {
   );
 };
 
-export default ControlPanel;
+export default Searching;
 
 const styles = StyleSheet.create({
   container: {
