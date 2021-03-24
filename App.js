@@ -19,7 +19,7 @@ const InfoPanelRoute = () => <InfoPanel />;
 
 const SearchingRoute = () => <Searching />;
 
-const FavouritesRoute = () => <Text>FavouritesRoute</Text>;
+const FavouritesRoute = () => <Favourites />;
 export default function App() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([

@@ -1,6 +1,6 @@
 import { registerRootComponent } from "expo";
 import * as React from "react";
-import { Provider as PaperProvider } from "react-native-paper";
+import { Provider as PaperProvider, DarkTheme } from "react-native-paper";
 import { Provider as ReduxProvider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, ImageBackground, Text } from "react-native";
+import { FAB } from "react-native-paper";
 import dayImg from "../../img/day.png";
 import nightImg from "../../img/night.png";
 const Weather = () => {
@@ -9,6 +10,13 @@ const Weather = () => {
         <Text style={styles.text}>cityName</Text>
         <Text style={styles.text}>cityWeather</Text>
       </ImageBackground>
+      <FAB
+        style={styles.fab}
+        small={false}
+        icon="heart"
+        onPress={() => console.log("Pressed")}
+        type="string"
+      />
     </View>
   );
 };
@@ -28,5 +36,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#000",
+  },
+  fab: {
+    position: "absolute",
+    marginBottom: 50,
+    marginRight: 50,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "#e64570",
   },
 });

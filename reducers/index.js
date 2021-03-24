@@ -3,7 +3,7 @@ import cityWeatherInfoReducer from "./weather";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-  cityData: cityReducer,
+  citiesData: cityReducer,
   cityWeatherInfo: cityWeatherInfoReducer,
 });
 

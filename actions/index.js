@@ -1,7 +1,7 @@
 export const fetchCity = (cityData) => {
   return {
     type: "GET_CITY",
-    payload: { cityName: cityData.cityName, cityId: cityData.cityId },
+    payload: { cities: cityData },
   };
 };
 export const fetchCityError = (error) => {
