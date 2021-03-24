@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import { findCity } from "../reducers/city";
+import { Appbar } from "react-native-paper";
 
 const Searching = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Searching = () => {
 
   return (
     <View style={styles.container}>
+      <Text>alulasdas</Text>
       <TextInput
         style={styles.input}
         value={input}

@@ -11,6 +11,9 @@ const SecondRoute = () => (
   <View style={[styles.scene, { backgroundColor: "#673ab7" }]} />
 );
 
+const ThirdRoute = () => (
+  <View style={[styles.scene, { backgroundColor: "#8CE578" }]} />
+);
 // This is our placeholder component for the tabs
 // This will be rendered when a tab isn't loaded yet
 // You could also customize it to render different content depending on the route
@@ -23,8 +26,9 @@ class InfoPanel extends React.Component {
   state = {
     index: 0,
     routes: [
-      { key: "first", title: "First" },
-      { key: "second", title: "Second" },
+      { key: "first", title: "Weather" },
+      { key: "second", title: "Next days" },
+      { key: "third", title: "Location info" },
     ],
   };
 
@@ -40,6 +44,7 @@ class InfoPanel extends React.Component {
         renderScene={SceneMap({
           first: FirstRoute,
           second: SecondRoute,
+          third: ThirdRoute,
         })}
         renderLazyPlaceholder={this._renderLazyPlaceholder}
         onIndexChange={this._handleIndexChange}
