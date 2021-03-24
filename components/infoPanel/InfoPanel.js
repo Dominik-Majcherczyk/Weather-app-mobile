@@ -1,22 +1,16 @@
 import * as React from "react";
 import { View, Text, StyleSheet, Dimensions, StatusBar } from "react-native";
 import { TabView, TabBar, SceneMap } from "react-native-tab-view";
-import { Constants } from "expo";
+import Weather from "./Weather";
+import Forecast from "./Forecast";
+import CityInfo from "./CityInfo";
 
-const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: "#ff4081" }]} />
-);
+const FirstRoute = () => <Weather />;
 
-const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: "#673ab7" }]} />
-);
+const SecondRoute = () => <Forecast />;
 
-const ThirdRoute = () => (
-  <View style={[styles.scene, { backgroundColor: "#8CE578" }]} />
-);
-// This is our placeholder component for the tabs
-// This will be rendered when a tab isn't loaded yet
-// You could also customize it to render different content depending on the route
+const ThirdRoute = () => <CityInfo />;
+
 const LazyPlaceholder = ({ route }) => (
   <View style={styles.scene}>
     <Text>Loading {route.title}…</Text>
@@ -58,9 +52,4 @@ class InfoPanel extends React.Component {
 export default InfoPanel;
 const styles = StyleSheet.create({
   container: {},
-  scene: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
 });
