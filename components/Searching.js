@@ -3,28 +3,12 @@ import { View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import { findCity } from "../reducers/city";
-import { Divider, Appbar, TextInput, HelperText } from "react-native-paper";
+import { Divider, TouchableRipple, TextInput } from "react-native-paper";
 
 const Searching = () => {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const citiesData = useSelector((state) => state.citiesData);
-
-  const hasErrors = () => {
-    return Array.from(input).includes(
-      "@",
-      "!",
-      "#",
-      "$",
-      "%",
-      "^",
-      "&",
-      "*",
-      "(",
-      ")",
-      "+"
-    );
-  };
 
   console.log(input);
   useEffect(() => {
@@ -39,25 +23,28 @@ const Searching = () => {
         value={input}
         onChangeText={(text) => setInput(text)}
       ></TextInput>
-      <HelperText type="error" visible={hasErrors()}>
-        City can't contain special characters
-      </HelperText>
+
       <ScrollView>
         {citiesData.cities != undefined ? (
           citiesData.cities.map((city) => {
             return (
               <View key={city.Key}>
-                <View style={styles.searchItem}>
-                  <Text>{city.LocalizedName}</Text>
-                  <Text>{city.Country.LocalizedName}</Text>
-                  <Text>Region: {city.AdministrativeArea.LocalizedName}</Text>
-                </View>
+                <TouchableRipple
+                  onPress={() => console.log("Pressed")}
+                  rippleColor="rgba(250, 127, 219, 0.73)"
+                >
+                  <View style={styles.searchItem}>
+                    <Text>{city.LocalizedName}</Text>
+                    <Text>{city.Country.LocalizedName}</Text>
+                    <Text>Region: {city.AdministrativeArea.LocalizedName}</Text>
+                  </View>
+                </TouchableRipple>
                 <Divider />
               </View>
             );
           })
         ) : (
-          <Text>sad pepe</Text>
+          <Text>tutaj coś będzie przed rozpoczęciem wyszukiwania lokacji</Text>
         )}
       </ScrollView>
     </View>
