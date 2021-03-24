@@ -1,6 +1,6 @@
 import { fetchCity, fetchCityError } from "../actions/index";
 initialState = {
-  cities: "",
+  cities: [{}],
   error: "",
 };
 const cityReducer = (state = initialState, action) => {
