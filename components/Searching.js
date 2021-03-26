@@ -30,7 +30,7 @@ const Searching = () => {
             return (
               <View key={city.Key}>
                 <TouchableRipple
-                  onPress={() => console.log("Pressed")}
+                  onPress={() => {}}
                   rippleColor="rgba(250, 127, 219, 0.73)"
                 >
                   <View style={styles.searchItem}>

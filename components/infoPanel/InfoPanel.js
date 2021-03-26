@@ -1,6 +1,6 @@
 import * as React from "react";
-import { View, Text, StyleSheet, Dimensions, StatusBar } from "react-native";
-import { TabView, TabBar, SceneMap } from "react-native-tab-view";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
 import Weather from "./Weather";
 import Forecast from "./Forecast";
 import CityInfo from "./CityInfo";
