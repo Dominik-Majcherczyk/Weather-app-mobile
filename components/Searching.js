@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { findCity } from "../reducers/city";
 import { Divider, TouchableRipple, TextInput } from "react-native-paper";
 
-const Searching = () => {
+const Searching = ({ setIndex }) => {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const citiesData = useSelector((state) => state.citiesData);
@@ -30,7 +30,9 @@ const Searching = () => {
             return (
               <View key={city.Key}>
                 <TouchableRipple
-                  onPress={() => {}}
+                  onPress={() => {
+                    setIndex(0);
+                  }}
                   rippleColor="rgba(250, 127, 219, 0.73)"
                 >
                   <View style={styles.searchItem}>
