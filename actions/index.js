@@ -18,6 +18,17 @@ export const fetchCityWeatherInfo = (cityWeatherInfo) => {
       isDayTime: cityWeatherInfo.IsDayTime,
       localObservationDateTime: cityWeatherInfo.LocalObservationDateTime,
       temperature: cityWeatherInfo.Temperature,
+      weatherIcon: cityWeatherInfo.WeatherIcon,
+      weatherText: cityWeatherInfo.WeatherText,
+    },
+  };
+};
+
+export const setCity = (cityName) => {
+  return {
+    type: "SET_CITY",
+    payload: {
+      cityName,
     },
   };
 };

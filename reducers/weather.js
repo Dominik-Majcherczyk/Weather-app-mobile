@@ -3,6 +3,8 @@ initialState = {
   isDayTime: null,
   localObservationDateTime: "",
   temperature: {},
+  weatherIcon: "",
+  weatherText: null,
 };
 //payload: {isDayTime: cityWeatherInfo.IsDayTime,localObservationDateTime: cityWeatherInfo.LocalObservationDateTime,temperature:cityWeatherInfo.Temperature}
 const cityWeatherInfoReducer = (state = initialState, action) => {
@@ -14,6 +16,8 @@ const cityWeatherInfoReducer = (state = initialState, action) => {
         isDayTime: action.payload.isDayTime,
         localObservationDateTime: action.payload.localObservationDateTime,
         temperature: action.payload.temperature,
+        weatherIcon: action.payload.weatherIcon,
+        weatherText: action.payload.weatherText,
       };
     default:
       return state;

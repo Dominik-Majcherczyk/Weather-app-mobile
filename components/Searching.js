@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
+import { setCity } from "../actions/index";
+import { findCityWeatherInfo } from "../reducers/weather";
 import { findCity } from "../reducers/city";
 import { Divider, TouchableRipple, TextInput } from "react-native-paper";
 
@@ -10,12 +12,12 @@ const Searching = ({ setIndex }) => {
   const [input, setInput] = useState("");
   const citiesData = useSelector((state) => state.citiesData);
 
-  console.log(input);
+  //console.log(input);
   useEffect(() => {
     dispatch(findCity(input));
   }, [input]);
 
-  console.log(citiesData.cities);
+  //console.log(citiesData.cities);
   return (
     <View style={styles.container}>
       <TextInput
@@ -31,6 +33,8 @@ const Searching = ({ setIndex }) => {
               <View key={city.Key}>
                 <TouchableRipple
                   onPress={() => {
+                    dispatch(findCityWeatherInfo(city.Key));
+                    dispatch(setCity(city.LocalizedName));
                     setIndex(0);
                   }}
                   rippleColor="rgba(250, 127, 219, 0.73)"

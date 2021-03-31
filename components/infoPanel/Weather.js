@@ -1,14 +1,43 @@
 import React from "react";
-import { View, StyleSheet, ImageBackground, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Text,
+  FlatList,
+} from "react-native";
 import { FAB } from "react-native-paper";
 import dayImg from "../../img/day.png";
 import nightImg from "../../img/night.png";
+import { useDispatch, useSelector } from "react-redux";
 const Weather = () => {
+  const cityWeatherInfo = useSelector((state) => state.cityWeatherInfo);
+  const cityName = useSelector((state) => state.cityName);
+
+  const setImage = (isDayTime) => {
+    if (isDayTime == true) {
+      return dayImg;
+    } else {
+      return nightImg;
+    }
+  };
+  console.log(
+    "XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+  );
+  console.log(cityName);
+  console.log(cityWeatherInfo);
   return (
     <View style={styles.scene}>
-      <ImageBackground source={dayImg} style={styles.image}>
-        <Text style={styles.text}>cityName</Text>
-        <Text style={styles.text}>cityWeather</Text>
+      <ImageBackground
+        source={
+          cityWeatherInfo.isDayTime == null
+            ? dayImg
+            : setImage(cityWeatherInfo.isDayTime)
+        }
+        style={styles.image}
+      >
+        <Text style={styles.text}>{cityName.cityName}</Text>
+        <Text style={styles.text}>{cityWeatherInfo.isDayTime}</Text>
       </ImageBackground>
       <FAB
         style={styles.fab}
