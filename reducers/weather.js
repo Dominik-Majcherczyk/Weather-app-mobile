@@ -2,7 +2,7 @@ import { fetchCityWeatherInfo } from "../actions/index";
 initialState = {
   isDayTime: null,
   localObservationDateTime: "",
-  temperature: {},
+  temperature: undefined,
   weatherIcon: "",
   weatherText: null,
 };
@@ -26,7 +26,7 @@ const cityWeatherInfoReducer = (state = initialState, action) => {
 
 export const findCityWeatherInfo = (cityKey) => async (dispatch) => {
   await fetch(
-    `http://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=wfRGVnT6Q4hZtR749uYozqHKCe1FHKE3`
+    `http://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=lxxucFd3EEaDSpxcFbTVyROFKL3tWxsG`
   )
     .then((res) => res.json())
     .then((data) => dispatch(fetchCityWeatherInfo(data[0])))
