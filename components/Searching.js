@@ -34,7 +34,12 @@ const Searching = ({ setIndex }) => {
                 <TouchableRipple
                   onPress={() => {
                     dispatch(findCityWeatherInfo(city.Key));
-                    dispatch(setCity(city.LocalizedName));
+                    dispatch(
+                      setCity({
+                        cityName: city.LocalizedName,
+                        cityKey: city.Key,
+                      })
+                    );
                     setIndex(0);
                   }}
                   rippleColor="rgba(250, 127, 219, 0.73)"

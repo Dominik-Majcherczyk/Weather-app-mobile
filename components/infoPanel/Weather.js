@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Weather = () => {
   const cityWeatherInfo = useSelector((state) => state.cityWeatherInfo);
   const cityName = useSelector((state) => state.cityName);
-
+  console.log(cityName.cityKey);
   const setImage = (isDayTime) => {
     if (isDayTime == true) {
       return dayImg;
@@ -25,7 +25,6 @@ const Weather = () => {
     }
   };
   let iconSource = ico;
-  console.log(cityName);
   console.log(cityWeatherInfo);
   return (
     <View style={styles.scene}>

@@ -1,5 +1,6 @@
 initialState = {
   cityName: "Search some city!",
+  cityKey: "",
 };
 const cityNameReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -7,6 +8,7 @@ const cityNameReducer = (state = initialState, action) => {
       return {
         ...state,
         cityName: action.payload.cityName,
+        cityKey: action.payload.cityKey,
       };
 
     default:

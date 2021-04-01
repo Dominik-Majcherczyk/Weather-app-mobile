@@ -24,11 +24,12 @@ export const fetchCityWeatherInfo = (cityWeatherInfo) => {
   };
 };
 
-export const setCity = (cityName) => {
+export const setCity = (city) => {
   return {
     type: "SET_CITY",
     payload: {
-      cityName,
+      cityName: city.cityName,
+      cityKey: city.cityKey,
     },
   };
 };
