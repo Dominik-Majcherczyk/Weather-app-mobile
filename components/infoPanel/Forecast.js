@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useSelector } from "react-redux";
 const Forecast = () => {
   const cityName = useSelector((state) => state.cityName);
@@ -18,9 +18,27 @@ const Forecast = () => {
   useEffect(() => {
     fetchForecast(cityKey);
   }, [cityKey]);
+
   console.log("FOOOOOOOOOOREEEEEEEEEEECAAAAAAAAAAAAAAASTTTTTTTTTTTTTTT");
-  console.log(forecast);
-  return <View style={styles.scene}></View>;
+
+  return (
+    <View style={styles.scene}>
+      {forecast !== null ? (
+        forecast.DailyForecasts.map((day) => {
+          return (
+            <View key={day.Date}>
+              <Text>{day.Date.slice(0, 10)}</Text>
+              <Text>
+                {Math.round((day.Temperature.Maximum.Value - 32) / 1.8)}
+              </Text>
+            </View>
+          );
+        })
+      ) : (
+        <Text>not xd</Text>
+      )}
+    </View>
+  );
 };
 
 export default Forecast;
