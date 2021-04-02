@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 const Forecast = () => {
   const cityName = useSelector((state) => state.cityName);
@@ -16,27 +16,44 @@ const Forecast = () => {
   };
 
   useEffect(() => {
-    fetchForecast(cityKey);
-  }, [cityKey]);
+    cityKey !== null && cityKey !== undefined && cityKey !== ""
+      ? fetchForecast(cityKey)
+      : null;
+  }, [cityName]);
 
   console.log("FOOOOOOOOOOREEEEEEEEEEECAAAAAAAAAAAAAAASTTTTTTTTTTTTTTT");
 
   return (
     <View style={styles.scene}>
-      {forecast !== null ? (
-        forecast.DailyForecasts.map((day) => {
-          return (
-            <View key={day.Date}>
-              <Text>{day.Date.slice(0, 10)}</Text>
-              <Text>
-                {Math.round((day.Temperature.Maximum.Value - 32) / 1.8)}
-              </Text>
-            </View>
-          );
-        })
-      ) : (
-        <Text>not xd</Text>
-      )}
+      <ScrollView>
+        {forecast !== undefined && forecast !== null ? (
+          forecast.DailyForecasts.map((day) => {
+            return (
+              <View key={day.Date} style={styles.infoContainer}>
+                <Text>{day.Date.slice(0, 10).replace("-", " ")}</Text>
+                <View>
+                  <Text>
+                    {`Minimum: ${Math.round(
+                      (day.Temperature.Minimum.Value - 32) / 1.8
+                    )} C`}
+                  </Text>
+                  <Text>
+                    {`Maximum: ${Math.round(
+                      (day.Temperature.Maximum.Value - 32) / 1.8
+                    )} C`}
+                  </Text>
+                </View>
+                <View>
+                  <Text>{`Day: ${day.Day.IconPhrase}`}</Text>
+                  <Text>{`Night: ${day.Night.IconPhrase}`}</Text>
+                </View>
+              </View>
+            );
+          })
+        ) : (
+          <Text>not xd</Text>
+        )}
+      </ScrollView>
     </View>
   );
 };
@@ -44,11 +61,23 @@ const Forecast = () => {
 export default Forecast;
 
 const styles = StyleSheet.create({
-  container: {},
-  scene: {
-    flex: 1,
+  infoContainer: {
+    width: 300,
+    height: 90,
+    marginTop: 10,
+    marginBottom: 30,
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#673ab7",
+    borderStyle: "solid",
+
+    borderRadius: 25,
+    backgroundColor: "rgba(197, 195, 195, 0.55)",
+  },
+  scene: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
   },
 });
