@@ -21,7 +21,7 @@ const Forecast = () => {
       : null;
   }, [cityName]);
 
-  console.log("FOOOOOOOOOOREEEEEEEEEEECAAAAAAAAAAAAAAASTTTTTTTTTTTTTTT");
+  console.log("Forecast log");
 
   return (
     <View style={styles.scene}>
