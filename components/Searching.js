@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCity } from "../actions/index";
 import { findCityWeatherInfo } from "../reducers/weather";
 import { findCity } from "../reducers/city";
-import { Divider, TouchableRipple, TextInput } from "react-native-paper";
+import { Divider, TouchableRipple, TextInput, FAB } from "react-native-paper";
 
 const Searching = ({ setIndex }) => {
   const dispatch = useDispatch();
@@ -58,6 +58,13 @@ const Searching = ({ setIndex }) => {
           <Text>tutaj coś będzie przed rozpoczęciem wyszukiwania lokacji</Text>
         )}
       </ScrollView>
+      <FAB
+        style={styles.fab}
+        small={false}
+        icon="crosshairs-gps"
+        onPress={() => console.log("Pressed")}
+        type="string"
+      />
     </View>
   );
 };
@@ -79,6 +86,14 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "#333333",
     color: "#fff",
+  },
+  fab: {
+    position: "absolute",
+    marginBottom: 20,
+    marginRight: 20,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "#6295f5",
   },
   searchItem: {
     flex: 1,
