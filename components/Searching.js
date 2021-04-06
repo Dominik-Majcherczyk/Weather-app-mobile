@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import { setCity } from "../actions/index";
 import { findCityWeatherInfo } from "../reducers/weather";
 import { findCity } from "../reducers/city";
 import { Divider, TouchableRipple, TextInput, FAB } from "react-native-paper";
+//geolocation API
+import Geolocation from "@react-native-community/geolocation";
 
 const Searching = ({ setIndex }) => {
   const dispatch = useDispatch();
@@ -16,6 +18,38 @@ const Searching = ({ setIndex }) => {
   useEffect(() => {
     dispatch(findCity(input));
   }, [input]);
+
+  //get user location
+  const fetchUserLocationInfo = async (lat, lon) => {
+    await fetch(
+      `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=lxxucFd3EEaDSpxcFbTVyROFKL3tWxsG&q=${lat}%2C${lon}`
+    )
+      .then((res) => res.json())
+      .then((city) => {
+        dispatch(findCityWeatherInfo(city.Key));
+        dispatch(
+          setCity({
+            cityName: city.LocalizedName,
+            cityKey: city.Key,
+          })
+        );
+      })
+      .then(setIndex(0))
+      .catch(() => console.log("error lat lon"));
+  };
+
+  const findCoordinates = () => {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        fetchUserLocationInfo(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+      },
+      (error) => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  };
 
   //console.log(citiesData.cities);
   return (
@@ -62,7 +96,9 @@ const Searching = ({ setIndex }) => {
         style={styles.fab}
         small={false}
         icon="crosshairs-gps"
-        onPress={() => console.log("Pressed")}
+        onPress={() => {
+          findCoordinates();
+        }}
         type="string"
       />
     </View>
