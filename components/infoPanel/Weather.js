@@ -1,22 +1,18 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  ImageBackground,
-  Text,
-  FlatList,
-  Image,
-} from "react-native";
+import { View, StyleSheet, ImageBackground, Text, Image } from "react-native";
 import { FAB } from "react-native-paper";
 import dayImg from "../../img/dayImg.png";
 import nightImg from "../../img/nightImg.png";
 import ico from "../../img/icons/Cloud-Fog.png";
 import { useDispatch, useSelector } from "react-redux";
+//local storage
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Weather = () => {
+  const dispatch = useDispatch();
   const cityWeatherInfo = useSelector((state) => state.cityWeatherInfo);
   const cityName = useSelector((state) => state.cityName);
-  console.log(cityName.cityKey);
+  console.log(cityName);
   const setImage = (isDayTime) => {
     if (isDayTime == true) {
       return dayImg;
@@ -25,6 +21,20 @@ const Weather = () => {
     }
   };
   let iconSource = ico;
+
+  //adding fav zone
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem(`${cityName.cityName}`, JSON.stringify(value));
+    } catch (e) {
+      console.log("error while saving fav zone");
+    }
+  };
+
+  const addFavourite = () => {
+    storeData(cityName);
+  };
+
   console.log(cityWeatherInfo);
   return (
     <View style={styles.scene}>
@@ -56,7 +66,9 @@ const Weather = () => {
               style={styles.fab}
               small={false}
               icon="heart"
-              onPress={() => console.log("Pressed")}
+              onPress={() => {
+                addFavourite();
+              }}
               type="string"
             />
           </View>
