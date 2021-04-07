@@ -18,10 +18,10 @@ import AppHeader from "./components/AppHeader";
 
 const InfoPanelRoute = () => <InfoPanel />;
 
-const FavouritesRoute = () => <Favourites />;
 export default function App() {
   const [index, setIndex] = React.useState(0);
   const SearchingRoute = () => <Searching setIndex={setIndex} />;
+  const FavouritesRoute = () => <Favourites setIndex={setIndex} />;
   const [routes] = React.useState([
     {
       key: "InfoPanel",

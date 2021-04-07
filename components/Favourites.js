@@ -8,7 +8,7 @@ import { findCityWeatherInfo } from "../reducers/weather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
-const Favourites = () => {
+const Favourites = ({ setIndex }) => {
   const dispatch = useDispatch();
   const [keys, setKeys] = useState(null);
   const [favs, setFavs] = useState(null);
@@ -58,32 +58,43 @@ const Favourites = () => {
 
   return (
     <View style={styles.container}>
-      {favs != null
-        ? favs.map((fav) => {
-            return (
-              <View key={fav[0]}>
-                <TouchableRipple
-                  onPress={() => {
-                    dispatch(findCityWeatherInfo(JSON.parse(fav[1]).cityKey));
-                    dispatch(
-                      setCity({
-                        cityName: JSON.parse(fav[1]).cityName,
-                        cityKey: JSON.parse(fav[1]).cityKey,
-                      })
-                    );
-                    setIndex(0);
-                  }}
-                  rippleColor="rgba(250, 127, 219, 0.73)"
-                >
-                  <View style={styles.searchItem}>
-                    <Text>{JSON.parse(fav[1]).cityName}</Text>
-                  </View>
-                </TouchableRipple>
-                <Divider />
-              </View>
-            );
-          })
-        : null}
+      <Text>Fav zones:</Text>
+      {favs != null ? (
+        favs.map((fav) => {
+          return (
+            <View key={fav[0]} style={styles.content}>
+              <TouchableRipple
+                onPress={() => {
+                  dispatch(findCityWeatherInfo(JSON.parse(fav[1]).cityKey));
+                  dispatch(
+                    setCity({
+                      cityName: JSON.parse(fav[1]).cityName,
+                      cityKey: JSON.parse(fav[1]).cityKey,
+                    })
+                  );
+                  setIndex(0);
+                }}
+                rippleColor="rgba(250, 127, 219, 0.73)"
+              >
+                <View style={styles.singleItem}>
+                  <Text>{JSON.parse(fav[1]).cityName}</Text>
+                  <FAB
+                    style={styles.fab}
+                    small={false}
+                    icon="delete-outline"
+                    onPress={() => {
+                      console.log("unfav");
+                    }}
+                    type="string"
+                  />
+                </View>
+              </TouchableRipple>
+            </View>
+          );
+        })
+      ) : (
+        <Text>nie ma kurwa nie dla psa dla pana to</Text>
+      )}
 
       {/* <FAB
         style={styles.fab}
@@ -105,13 +116,14 @@ export default Favourites;
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-  },
-
-  searchItem: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 200,
+  },
+
+  singleItem: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   searchItemContent: {},
 });
