@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ImageBackground, Text, Image } from "react-native";
-
-import { FAB } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { FAB, Divider, TouchableRipple, TextInput } from "react-native-paper";
+import { setCity } from "../actions/index";
+import { findCityWeatherInfo } from "../reducers/weather";
 //local storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 const Favourites = () => {
+  const dispatch = useDispatch();
   const [keys, setKeys] = useState(null);
   const [favs, setFavs] = useState(null);
 
@@ -38,6 +41,10 @@ const Favourites = () => {
     keys != null ? getValuesForKeys(keys) : null;
   }, [keys]);
 
+  useEffect(() => {
+    getAllKeys();
+  }, []);
+
   // get data from storage
   const getValuesForKeys = async () => {
     let values;
@@ -50,23 +57,45 @@ const Favourites = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {favs != null
         ? favs.map((fav) => {
-            return <Text key={fav.key}>{fav[1]}</Text>;
+            return (
+              <View key={fav[0]}>
+                <TouchableRipple
+                  onPress={() => {
+                    dispatch(findCityWeatherInfo(JSON.parse(fav[1]).cityKey));
+                    dispatch(
+                      setCity({
+                        cityName: JSON.parse(fav[1]).cityName,
+                        cityKey: JSON.parse(fav[1]).cityKey,
+                      })
+                    );
+                    setIndex(0);
+                  }}
+                  rippleColor="rgba(250, 127, 219, 0.73)"
+                >
+                  <View style={styles.searchItem}>
+                    <Text>{JSON.parse(fav[1]).cityName}</Text>
+                  </View>
+                </TouchableRipple>
+                <Divider />
+              </View>
+            );
           })
         : null}
-      <FAB
+
+      {/* <FAB
         style={styles.fab}
         small={false}
         icon="heart"
         onPress={() => {
           // clearAll();
-          getAllKeys();
+
           console.log("xdddd");
         }}
         type="string"
-      />
+      /> */}
     </View>
   );
 };
@@ -74,55 +103,15 @@ const Favourites = () => {
 export default Favourites;
 
 const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-  },
-  tinyLogo: {
-    width: 60,
-    height: 60,
-  },
-  icoFab: {
-    position: "absolute",
-    top: 0,
-    marginTop: -25,
-  },
-  infoContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  iconBackground: {
+  container: {
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 280,
-    height: "60%",
-    marginTop: 25,
-    backgroundColor: "rgba(236, 236, 236, 0.55)",
-    borderRadius: 20,
   },
-  image: {
+
+  searchItem: {
     flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
+    height: 200,
   },
-  smallText: {
-    color: "#fff",
-    fontWeight: "700",
-    fontSize: 20,
-  },
-  bigText: {
-    color: "#fff",
-    fontWeight: "700",
-    fontSize: 35,
-  },
-  fab: {
-    position: "absolute",
-    marginBottom: -15,
-    marginRight: -15,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "#e64570",
-  },
+  searchItemContent: {},
 });
