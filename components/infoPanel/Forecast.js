@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(197, 195, 195, 0.55)",
   },
   scene: {
+    height: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

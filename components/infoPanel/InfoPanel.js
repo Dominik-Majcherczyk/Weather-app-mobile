@@ -1,5 +1,6 @@
 import * as React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { ActivityIndicator, Colors } from "react-native-paper";
 import { TabView, SceneMap } from "react-native-tab-view";
 import Weather from "./Weather";
 import Forecast from "./Forecast";
@@ -12,8 +13,8 @@ const SecondRoute = () => <Forecast />;
 const ThirdRoute = () => <CityInfo />;
 
 const LazyPlaceholder = ({ route }) => (
-  <View style={styles.scene}>
-    <Text>Loading {route.title}…</Text>
+  <View style={styles.loading}>
+    <ActivityIndicator animating={true} color={Colors.red800} />
   </View>
 );
 class InfoPanel extends React.Component {
@@ -52,4 +53,9 @@ class InfoPanel extends React.Component {
 export default InfoPanel;
 const styles = StyleSheet.create({
   container: {},
+  loading: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
