@@ -93,7 +93,7 @@ const Favourites = ({ setIndex }) => {
           );
         })
       ) : (
-        <Text>nie ma kurwa nie dla psa dla pana to</Text>
+        <Text>No favs sets yet!</Text>
       )}
 
       {/* <FAB
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+    width: "100%",
   },
   searchItemContent: {},
 });

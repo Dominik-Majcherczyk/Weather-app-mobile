@@ -51,7 +51,9 @@ const Forecast = () => {
             );
           })
         ) : (
-          <Text>not xd</Text>
+          <View style={styles.waiter}>
+            <Text style={styles.bigText}>{cityName.cityName}</Text>
+          </View>
         )}
       </ScrollView>
     </View>
@@ -74,11 +76,17 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: "rgba(197, 195, 195, 0.55)",
   },
+  bigText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 35,
+  },
+  waiter: {},
   scene: {
     height: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#8233e9",
   },
 });

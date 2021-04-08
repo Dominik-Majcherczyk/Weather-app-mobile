@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ImageBackground, Text, Image } from "react-native";
 import { FAB } from "react-native-paper";
 import dayImg from "../../img/dayImg.png";
 import nightImg from "../../img/nightImg.png";
-import ico from "../../img/icons/Cloud-Fog.png";
+import icons from "./climacons.js";
 import { useDispatch, useSelector } from "react-redux";
 //local storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,6 +13,8 @@ const Weather = () => {
   const cityWeatherInfo = useSelector((state) => state.cityWeatherInfo);
   const cityName = useSelector((state) => state.cityName);
   console.log(cityName);
+
+  let iconSource = icons[cityWeatherInfo.weatherIcon - 1];
   const setImage = (isDayTime) => {
     if (isDayTime == true) {
       return dayImg;
@@ -20,7 +22,6 @@ const Weather = () => {
       return nightImg;
     }
   };
-  let iconSource = ico;
 
   //adding fav zone
   const storeData = async (value) => {
@@ -35,7 +36,7 @@ const Weather = () => {
     storeData(cityName);
   };
 
-  console.log(cityWeatherInfo);
+  console.log(cityWeatherInfo.weatherIcon);
   return (
     <View style={styles.scene}>
       <ImageBackground
@@ -53,26 +54,27 @@ const Weather = () => {
               `temperature: ${cityWeatherInfo.temperature.Metric.Value} ${cityWeatherInfo.temperature.Metric.Unit}`}
           </Text>
 
-          <View style={styles.iconBackground}>
-            <FAB
-              style={styles.icoFab}
-              small={false}
-              icon={iconSource}
-              type="string"
-            />
-            <Text style={styles.textDark}>{cityWeatherInfo.weatherText}</Text>
-            <Image style={styles.tinyLogo} source={iconSource} />
-            <FAB
-              style={styles.fab}
-              small={false}
-              icon="heart"
-              onPress={() => {
-                addFavourite();
-              }}
-              type="string"
-            />
-          </View>
+          {cityWeatherInfo.weatherIcon && (
+            <View style={styles.weatherBoxBackground}>
+              <Text style={styles.smallText}>
+                {cityWeatherInfo.weatherText}
+              </Text>
+              <View style={styles.iconBackground}>
+                <Image style={styles.tinyLogo} source={iconSource} />
+              </View>
+            </View>
+          )}
         </View>
+
+        <FAB
+          style={styles.fab}
+          small={false}
+          icon="heart"
+          onPress={() => {
+            addFavourite();
+          }}
+          type="string"
+        />
       </ImageBackground>
     </View>
   );
@@ -85,8 +87,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tinyLogo: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
   },
   icoFab: {
     position: "absolute",
@@ -102,11 +104,21 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: 280,
-    height: "60%",
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: "rgba(44, 44, 44, 0.685)",
+    marginTop: 15,
+  },
+  weatherBoxBackground: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 180,
+    height: 180,
     marginTop: 25,
-    backgroundColor: "rgba(236, 236, 236, 0.55)",
-    borderRadius: 20,
+    backgroundColor: "rgba(236, 236, 236, 0.164)",
+    borderRadius: 25,
   },
   image: {
     flex: 1,
@@ -126,8 +138,8 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: "absolute",
-    marginBottom: -15,
-    marginRight: -15,
+    marginBottom: 20,
+    marginRight: 20,
     right: 0,
     bottom: 0,
     backgroundColor: "#e64570",

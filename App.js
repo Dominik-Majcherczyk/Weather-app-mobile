@@ -27,19 +27,19 @@ export default function App() {
       key: "InfoPanel",
       title: "Weather",
       icon: "weather-snowy-rainy",
-      color: "#3F51B5",
+      color: "#da5139",
     },
     {
       key: "Searching",
       title: "Search",
       icon: "cloud-search-outline",
-      color: "#795548",
+      color: "#3179e6",
     },
     {
       key: "Favourites",
       title: "Favourites",
       icon: "heart-outline",
-      color: "#607D8B",
+      color: "#e03b6d",
     },
   ]);
 

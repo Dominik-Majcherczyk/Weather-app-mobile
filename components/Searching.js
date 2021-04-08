@@ -61,36 +61,36 @@ const Searching = ({ setIndex }) => {
       ></TextInput>
 
       <ScrollView>
-        {citiesData.cities != undefined ? (
-          citiesData.cities.map((city) => {
-            return (
-              <View key={city.Key}>
-                <TouchableRipple
-                  onPress={() => {
-                    dispatch(findCityWeatherInfo(city.Key));
-                    dispatch(
-                      setCity({
-                        cityName: city.LocalizedName,
-                        cityKey: city.Key,
-                      })
-                    );
-                    setIndex(0);
-                  }}
-                  rippleColor="rgba(250, 127, 219, 0.73)"
-                >
-                  <View style={styles.searchItem}>
-                    <Text>{city.LocalizedName}</Text>
-                    <Text>{city.Country.LocalizedName}</Text>
-                    <Text>Region: {city.AdministrativeArea.LocalizedName}</Text>
-                  </View>
-                </TouchableRipple>
-                <Divider />
-              </View>
-            );
-          })
-        ) : (
-          <Text>tutaj coś będzie przed rozpoczęciem wyszukiwania lokacji</Text>
-        )}
+        {citiesData.cities != undefined
+          ? citiesData.cities.map((city) => {
+              return (
+                <View key={city.Key}>
+                  <TouchableRipple
+                    onPress={() => {
+                      dispatch(findCityWeatherInfo(city.Key));
+                      dispatch(
+                        setCity({
+                          cityName: city.LocalizedName,
+                          cityKey: city.Key,
+                        })
+                      );
+                      setIndex(0);
+                    }}
+                    rippleColor="rgba(250, 127, 219, 0.73)"
+                  >
+                    <View style={styles.searchItem}>
+                      <Text>{city.LocalizedName}</Text>
+                      <Text>{city.Country.LocalizedName}</Text>
+                      <Text>
+                        Region: {city.AdministrativeArea.LocalizedName}
+                      </Text>
+                    </View>
+                  </TouchableRipple>
+                  <Divider />
+                </View>
+              );
+            })
+          : null}
       </ScrollView>
       <FAB
         style={styles.fab}
