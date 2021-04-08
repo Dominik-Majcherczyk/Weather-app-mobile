@@ -22,7 +22,7 @@ const Searching = ({ setIndex }) => {
   //get user location
   const fetchUserLocationInfo = async (lat, lon) => {
     await fetch(
-      `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=lxxucFd3EEaDSpxcFbTVyROFKL3tWxsG&q=${lat}%2C${lon}`
+      `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wfRGVnT6Q4hZtR749uYozqHKCe1FHKE3&q=${lat}%2C${lon}`
     )
       .then((res) => res.json())
       .then((city) => {
@@ -76,12 +76,14 @@ const Searching = ({ setIndex }) => {
                       );
                       setIndex(0);
                     }}
-                    rippleColor="rgba(250, 127, 219, 0.73)"
+                    rippleColor="rgba(164, 172, 252, 0.73)"
                   >
                     <View style={styles.searchItem}>
-                      <Text>{city.LocalizedName}</Text>
-                      <Text>{city.Country.LocalizedName}</Text>
-                      <Text>
+                      <Text style={styles.bigText}>{city.LocalizedName}</Text>
+                      <Text style={styles.smallText}>
+                        {city.Country.LocalizedName}
+                      </Text>
+                      <Text style={styles.smallText}>
                         Region: {city.AdministrativeArea.LocalizedName}
                       </Text>
                     </View>
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     flexDirection: "column",
+    backgroundColor: "#6d93cc",
   },
   input: {
     backgroundColor: "#333333",
@@ -129,7 +132,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     right: 0,
     bottom: 0,
-    backgroundColor: "#6295f5",
+    backgroundColor: "#3179e6",
   },
   searchItem: {
     flex: 1,
@@ -137,5 +140,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 70,
   },
-  searchItemContent: {},
+  bigText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 15,
+  },
+  smallText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 10,
+  },
 });

@@ -19,7 +19,7 @@ const cityReducer = (state = initialState, action) => {
 
 export const findCity = (city) => async (dispatch) => {
   await fetch(
-    `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=lxxucFd3EEaDSpxcFbTVyROFKL3tWxsG&q=${city}`
+    `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=wfRGVnT6Q4hZtR749uYozqHKCe1FHKE3&q=${city}`
   )
     .then((res) => res.json())
     .then((data) => dispatch(fetchCity(data)))

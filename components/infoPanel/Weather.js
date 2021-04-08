@@ -66,15 +66,17 @@ const Weather = () => {
           )}
         </View>
 
-        <FAB
-          style={styles.fab}
-          small={false}
-          icon="heart"
-          onPress={() => {
-            addFavourite();
-          }}
-          type="string"
-        />
+        {cityWeatherInfo.weatherIcon && (
+          <FAB
+            style={styles.fab}
+            small={false}
+            icon="heart"
+            onPress={() => {
+              addFavourite();
+            }}
+            type="string"
+          />
+        )}
       </ImageBackground>
     </View>
   );

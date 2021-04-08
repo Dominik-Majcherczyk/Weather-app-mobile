@@ -1,7 +1,7 @@
 import * as React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
-import { TabView, SceneMap } from "react-native-tab-view";
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import Weather from "./Weather";
 import Forecast from "./Forecast";
 import CityInfo from "./CityInfo";
@@ -17,6 +17,15 @@ const LazyPlaceholder = ({ route }) => (
     <ActivityIndicator animating={true} color={Colors.red800} />
   </View>
 );
+
+const renderTabBar = (props) => (
+  <TabBar
+    {...props}
+    indicatorStyle={{ backgroundColor: "white" }}
+    style={{ backgroundColor: "#da5139" }}
+  />
+);
+
 class InfoPanel extends React.Component {
   state = {
     index: 0,
@@ -34,6 +43,7 @@ class InfoPanel extends React.Component {
   render() {
     return (
       <TabView
+        renderTabBar={renderTabBar}
         lazy
         navigationState={this.state}
         renderScene={SceneMap({

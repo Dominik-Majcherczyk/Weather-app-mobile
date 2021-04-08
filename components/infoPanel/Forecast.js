@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { View, StyleSheet, Text, ScrollView, Image } from "react-native";
 import { useSelector } from "react-redux";
+import dayIco from "../../img/icons/Sun.png";
+import nightIco from "../../img/icons/Moon.png";
+
 const Forecast = () => {
   const cityName = useSelector((state) => state.cityName);
   let cityKey = cityName.cityKey;
@@ -8,7 +11,7 @@ const Forecast = () => {
 
   const fetchForecast = async (cityKey) => {
     await fetch(
-      `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=lxxucFd3EEaDSpxcFbTVyROFKL3tWxsG`
+      `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=wfRGVnT6Q4hZtR749uYozqHKCe1FHKE3`
     )
       .then((res) => res.json())
       .then((data) => setForecast(data))
@@ -30,22 +33,34 @@ const Forecast = () => {
           forecast.DailyForecasts.map((day) => {
             return (
               <View key={day.Date} style={styles.infoContainer}>
-                <Text>{day.Date.slice(0, 10).replace("-", " ")}</Text>
-                <View>
-                  <Text>
-                    {`Minimum: ${Math.round(
+                <Text style={styles.bigText}>
+                  {day.Date.slice(0, 10).replace("-", " ")}
+                </Text>
+                <View style={styles.container}>
+                  <Text style={styles.smallText}>
+                    {`Min.temp: ${Math.round(
                       (day.Temperature.Minimum.Value - 32) / 1.8
                     )} C`}
                   </Text>
-                  <Text>
-                    {`Maximum: ${Math.round(
+                  <Text style={styles.smallText}>
+                    {`Max.temp: ${Math.round(
                       (day.Temperature.Maximum.Value - 32) / 1.8
                     )} C`}
                   </Text>
                 </View>
-                <View>
-                  <Text>{`Day: ${day.Day.IconPhrase}`}</Text>
-                  <Text>{`Night: ${day.Night.IconPhrase}`}</Text>
+                <View style={styles.container}>
+                  <View style={styles.imageContainer}>
+                    <Image style={styles.tinyLogo} source={dayIco} />
+                    <Text
+                      style={styles.smallText}
+                    >{`Day: ${day.Day.IconPhrase}`}</Text>
+                  </View>
+                  <View style={styles.imageContainer}>
+                    <Image style={styles.tinyLogo} source={nightIco} />
+                    <Text
+                      style={styles.smallText}
+                    >{`Night: ${day.Night.IconPhrase}`}</Text>
+                  </View>
                 </View>
               </View>
             );
@@ -65,7 +80,7 @@ export default Forecast;
 const styles = StyleSheet.create({
   infoContainer: {
     width: 300,
-    height: 90,
+    height: 110,
     marginTop: 10,
     marginBottom: 30,
     display: "flex",
@@ -73,13 +88,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderStyle: "solid",
 
-    borderRadius: 25,
-    backgroundColor: "rgba(197, 195, 195, 0.55)",
+    borderRadius: 15,
+    backgroundColor: "rgba(75, 75, 75, 0.452)",
   },
+  tinyLogo: {
+    width: 24,
+    height: 24,
+  },
+
   bigText: {
     color: "#fff",
     fontWeight: "700",
-    fontSize: 35,
+    fontSize: 16,
+  },
+  smallText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 12,
+  },
+  container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imageContainer: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   waiter: {},
   scene: {
@@ -87,6 +123,6 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#8233e9",
+    backgroundColor: "#f08b6c",
   },
 });
