@@ -59,9 +59,15 @@ const Weather = () => {
               <Text style={styles.smallText}>
                 {cityWeatherInfo.weatherText}
               </Text>
-              <View style={styles.iconBackground}>
-                <Image style={styles.tinyLogo} source={iconSource} />
-              </View>
+              {cityWeatherInfo.isDayTime ? (
+                <View style={styles.iconBackgroundDay}>
+                  <Image style={styles.tinyLogo} source={iconSource} />
+                </View>
+              ) : (
+                <View style={styles.iconBackgroundNight}>
+                  <Image style={styles.tinyLogo} source={iconSource} />
+                </View>
+              )}
             </View>
           )}
         </View>
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  iconBackground: {
+  iconBackgroundNight: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -110,6 +116,16 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 35,
     backgroundColor: "rgba(44, 44, 44, 0.685)",
+    marginTop: 15,
+  },
+  iconBackgroundDay: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: "rgba(252, 252, 252, 0.733)",
     marginTop: 15,
   },
   weatherBoxBackground: {

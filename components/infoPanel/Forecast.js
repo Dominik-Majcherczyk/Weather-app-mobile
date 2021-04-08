@@ -32,34 +32,36 @@ const Forecast = () => {
         {forecast !== undefined && forecast !== null ? (
           forecast.DailyForecasts.map((day) => {
             return (
-              <View key={day.Date} style={styles.infoContainer}>
+              <View key={day.Date} style={styles.container}>
                 <Text style={styles.bigText}>
                   {day.Date.slice(0, 10).replace("-", " ")}
                 </Text>
-                <View style={styles.container}>
-                  <Text style={styles.smallText}>
-                    {`Min.temp: ${Math.round(
-                      (day.Temperature.Minimum.Value - 32) / 1.8
-                    )} C`}
-                  </Text>
-                  <Text style={styles.smallText}>
-                    {`Max.temp: ${Math.round(
-                      (day.Temperature.Maximum.Value - 32) / 1.8
-                    )} C`}
-                  </Text>
-                </View>
-                <View style={styles.container}>
-                  <View style={styles.imageContainer}>
-                    <Image style={styles.tinyLogo} source={dayIco} />
-                    <Text
-                      style={styles.smallText}
-                    >{`Day: ${day.Day.IconPhrase}`}</Text>
+                <View style={styles.infoContainer}>
+                  <View style={styles.container}>
+                    <Text style={styles.smallText}>
+                      {`Min.temp: ${Math.round(
+                        (day.Temperature.Minimum.Value - 32) / 1.8
+                      )} C`}
+                    </Text>
+                    <Text style={styles.smallText}>
+                      {`Max.temp: ${Math.round(
+                        (day.Temperature.Maximum.Value - 32) / 1.8
+                      )} C`}
+                    </Text>
                   </View>
-                  <View style={styles.imageContainer}>
-                    <Image style={styles.tinyLogo} source={nightIco} />
-                    <Text
-                      style={styles.smallText}
-                    >{`Night: ${day.Night.IconPhrase}`}</Text>
+                  <View style={styles.container}>
+                    <View style={styles.imageContainer}>
+                      <Image style={styles.tinyLogo} source={dayIco} />
+                      <Text
+                        style={styles.smallText}
+                      >{`${day.Day.IconPhrase}`}</Text>
+                    </View>
+                    <View style={styles.imageContainer}>
+                      <Image style={styles.tinyLogo} source={nightIco} />
+                      <Text
+                        style={styles.smallText}
+                      >{`${day.Night.IconPhrase}`}</Text>
+                    </View>
                   </View>
                 </View>
               </View>
