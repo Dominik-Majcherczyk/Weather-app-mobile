@@ -4,13 +4,13 @@ import { ActivityIndicator, Colors } from "react-native-paper";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import Weather from "./Weather";
 import Forecast from "./Forecast";
-import CityInfo from "./CityInfo";
+import Today from "./Today";
 
 const FirstRoute = () => <Weather />;
 
 const SecondRoute = () => <Forecast />;
 
-const ThirdRoute = () => <CityInfo />;
+const ThirdRoute = () => <Today />;
 
 const LazyPlaceholder = ({ route }) => (
   <View style={styles.loading}>
@@ -32,7 +32,7 @@ class InfoPanel extends React.Component {
     routes: [
       { key: "first", title: "Weather" },
       { key: "second", title: "Next days" },
-      { key: "third", title: "Location info" },
+      { key: "third", title: "Today" },
     ],
   };
 
