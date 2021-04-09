@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ImageBackground, Text, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Text,
+  Image,
+  ScrollView,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { FAB, Divider, TouchableRipple, TextInput } from "react-native-paper";
 import { setCity } from "../actions/index";
@@ -24,6 +31,15 @@ const Favourites = ({ setIndex }) => {
     setKeys(storageKeys);
 
     console.log(storageKeys);
+  };
+  //Delete fav
+  removeFav = async (item) => {
+    try {
+      await AsyncStorage.removeItem(item);
+      getAllKeys();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   //clearing storage
@@ -57,56 +73,56 @@ const Favourites = ({ setIndex }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Fav zones:</Text>
-      {favs != null ? (
-        favs.map((fav) => {
-          return (
-            <View key={fav[0]} style={styles.content}>
-              <TouchableRipple
-                onPress={() => {
-                  dispatch(findCityWeatherInfo(JSON.parse(fav[1]).cityKey));
-                  dispatch(
-                    setCity({
-                      cityName: JSON.parse(fav[1]).cityName,
-                      cityKey: JSON.parse(fav[1]).cityKey,
-                    })
-                  );
-                  setIndex(0);
-                }}
-                rippleColor="rgba(250, 127, 219, 0.73)"
-              >
-                <View style={styles.singleItem}>
-                  <Text>{JSON.parse(fav[1]).cityName}</Text>
-                  <FAB
-                    style={styles.fab}
-                    small={false}
-                    icon="delete-outline"
-                    onPress={() => {
-                      console.log("unfav");
-                    }}
-                    type="string"
-                  />
+    <View style={styles.scene}>
+      <Text style={styles.smallText}>Favourite places:</Text>
+      <ScrollView>
+        <View style={styles.container}>
+          {favs != null ? (
+            favs.map((fav) => {
+              return (
+                <View key={fav[0]} style={styles.content}>
+                  <View style={styles.singleElement}>
+                    <Text style={styles.smallContentText}>
+                      {JSON.parse(fav[1]).cityName}
+                    </Text>
+                    <View style={styles.fabContainer}>
+                      <FAB
+                        style={styles.fabDelete}
+                        small={false}
+                        icon="delete-outline"
+                        onPress={() => {
+                          removeFav(fav[0]);
+                        }}
+                        type="string"
+                      />
+                      <FAB
+                        style={styles.fabForward}
+                        small={false}
+                        icon="arrow-right-bold-outline"
+                        onPress={() => {
+                          dispatch(
+                            findCityWeatherInfo(JSON.parse(fav[1]).cityKey)
+                          );
+                          dispatch(
+                            setCity({
+                              cityName: JSON.parse(fav[1]).cityName,
+                              cityKey: JSON.parse(fav[1]).cityKey,
+                            })
+                          );
+                          setIndex(0);
+                        }}
+                        type="string"
+                      />
+                    </View>
+                  </View>
                 </View>
-              </TouchableRipple>
-            </View>
-          );
-        })
-      ) : (
-        <Text>No favs sets yet!</Text>
-      )}
-
-      {/* <FAB
-        style={styles.fab}
-        small={false}
-        icon="heart"
-        onPress={() => {
-          // clearAll();
-
-          console.log("xdddd");
-        }}
-        type="string"
-      /> */}
+              );
+            })
+          ) : (
+            <Text style={styles.smallText}>No favs sets yet!</Text>
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -114,8 +130,60 @@ const Favourites = ({ setIndex }) => {
 export default Favourites;
 
 const styles = StyleSheet.create({
+  scene: {
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fa8b9d",
+  },
   container: {
     display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  singleElement: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  fabContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 150,
+    flexDirection: "row",
+
+    justifyContent: "space-evenly",
+  },
+  content: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 150,
+    height: 120,
+    borderRadius: 25,
+    backgroundColor: "rgba(221, 221, 221, 0.356)",
+    marginTop: 25,
+    marginRight: 25,
+    marginBottom: 25,
+  },
+  smallText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 20,
+  },
+  smallContentText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 15,
+    marginBottom: 15,
+    marginTop: 15,
+  },
+  favContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -126,5 +194,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
   },
-  searchItemContent: {},
+  fabDelete: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "#eb6262",
+    marginBottom: 15,
+  },
+  fabForward: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "#bceb87",
+    marginBottom: 15,
+  },
 });
