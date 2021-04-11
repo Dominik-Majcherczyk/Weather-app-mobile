@@ -11,7 +11,7 @@ const Today = () => {
 
   const fetchForecast = async (cityKey) => {
     await fetch(
-      `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=wfRGVnT6Q4hZtR749uYozqHKCe1FHKE3`
+      `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityKey}?apikey=wfRGVnT6Q4hZtR749uYozqHKCe1FHKE3`
     )
       .then((res) => res.json())
       .then((data) => setForecast(data))
@@ -30,38 +30,38 @@ const Today = () => {
     <View style={styles.scene}>
       <ScrollView>
         {forecast !== undefined && forecast !== null ? (
-          forecast.DailyForecasts.map((day) => {
+          forecast.map((hour) => {
             return (
-              <View key={day.Date} style={styles.container}>
+              <View key={hour.DateTime} style={styles.container}>
                 <Text style={styles.bigText}>
-                  {day.Date.slice(0, 10).replace("-", " ")}
+                  {hour.DateTime.slice(11, 16)}
                 </Text>
                 <View style={styles.infoContainer}>
                   <View style={styles.container}>
                     <Text style={styles.smallText}>
-                      {`Min.temp: ${Math.round(
-                        (day.Temperature.Minimum.Value - 32) / 1.8
-                      )} C`}
-                    </Text>
-                    <Text style={styles.smallText}>
-                      {`Max.temp: ${Math.round(
-                        (day.Temperature.Maximum.Value - 32) / 1.8
+                      {`Temp: ${Math.round(
+                        (hour.Temperature.Value - 32) / 1.8
                       )} C`}
                     </Text>
                   </View>
                   <View style={styles.container}>
                     <View style={styles.imageContainer}>
-                      <Image style={styles.tinyLogo} source={dayIco} />
                       <Text
                         style={styles.smallText}
-                      >{`${day.Day.IconPhrase}`}</Text>
+                      >{`${hour.IconPhrase}`}</Text>
                     </View>
-                    <View style={styles.imageContainer}>
-                      <Image style={styles.tinyLogo} source={nightIco} />
-                      <Text
-                        style={styles.smallText}
-                      >{`${day.Night.IconPhrase}`}</Text>
-                    </View>
+
+                    {hour.IsDaylight ? (
+                      <View style={styles.imageContainer}>
+                        <Image style={styles.tinyLogo} source={dayIco} />
+                        <Text style={styles.smallText}>Day</Text>
+                      </View>
+                    ) : (
+                      <View style={styles.imageContainer}>
+                        <Image style={styles.tinyLogo} source={nightIco} />
+                        <Text style={styles.smallText}>Night</Text>
+                      </View>
+                    )}
                   </View>
                 </View>
               </View>
@@ -119,12 +119,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
-  waiter: {},
   scene: {
     height: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#f08b6c",
+    backgroundColor: "#e9a38e",
   },
 });
