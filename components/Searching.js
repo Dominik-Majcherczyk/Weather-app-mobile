@@ -8,13 +8,13 @@ import { findCity } from "../reducers/city";
 import { Divider, TouchableRipple, TextInput, FAB } from "react-native-paper";
 //geolocation API
 import Geolocation from "@react-native-community/geolocation";
+import apikey from "../accuweather";
 
 const Searching = ({ setIndex }) => {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const citiesData = useSelector((state) => state.citiesData);
 
-  //console.log(input);
   useEffect(() => {
     dispatch(findCity(input));
   }, [input]);
@@ -22,7 +22,7 @@ const Searching = ({ setIndex }) => {
   //get user location
   const fetchUserLocationInfo = async (lat, lon) => {
     await fetch(
-      `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wfRGVnT6Q4hZtR749uYozqHKCe1FHKE3&q=${lat}%2C${lon}`
+      `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${apikey}&q=${lat}%2C${lon}`
     )
       .then((res) => res.json())
       .then((city) => {
@@ -51,7 +51,6 @@ const Searching = ({ setIndex }) => {
     );
   };
 
-  //console.log(citiesData.cities);
   return (
     <View style={styles.container}>
       <TextInput
@@ -110,21 +109,10 @@ const Searching = ({ setIndex }) => {
 export default Searching;
 
 const styles = StyleSheet.create({
-  appbar: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    color: "red",
-  },
   container: {
     flex: 2,
     flexDirection: "column",
     backgroundColor: "#6d93cc",
-  },
-  input: {
-    backgroundColor: "#333333",
-    color: "#fff",
   },
   fab: {
     position: "absolute",

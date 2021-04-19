@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import Weather from "./Weather";
@@ -62,7 +62,6 @@ class InfoPanel extends React.Component {
 
 export default InfoPanel;
 const styles = StyleSheet.create({
-  container: {},
   loading: {
     display: "flex",
     alignItems: "center",

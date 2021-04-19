@@ -155,7 +155,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 150,
     flexDirection: "row",
-
     justifyContent: "space-evenly",
   },
   content: {
@@ -182,18 +181,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 15,
   },
-  favContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
 
-  singleItem: {
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    width: "100%",
-  },
   fabDelete: {
     display: "flex",
     alignItems: "center",

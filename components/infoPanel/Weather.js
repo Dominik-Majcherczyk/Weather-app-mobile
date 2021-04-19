@@ -5,6 +5,7 @@ import dayImg from "../../img/dayImg.png";
 import nightImg from "../../img/nightImg.png";
 import icons from "./climacons.js";
 import { useDispatch, useSelector } from "react-redux";
+
 //local storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -12,7 +13,6 @@ const Weather = () => {
   const dispatch = useDispatch();
   const cityWeatherInfo = useSelector((state) => state.cityWeatherInfo);
   const cityName = useSelector((state) => state.cityName);
-  console.log(cityName);
 
   let iconSource = icons[cityWeatherInfo.weatherIcon - 1];
   const setImage = (isDayTime) => {
@@ -98,11 +98,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  icoFab: {
-    position: "absolute",
-    top: 0,
-    marginTop: -25,
-  },
+
   infoContainer: {
     flex: 1,
     justifyContent: "center",

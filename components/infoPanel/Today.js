@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, ScrollView, Image } from "react-native";
 import { useSelector } from "react-redux";
 import dayIco from "../../img/icons/Sun.png";
 import nightIco from "../../img/icons/Moon.png";
-
+import apikey from "../../accuweather";
 const Today = () => {
   const cityName = useSelector((state) => state.cityName);
   let cityKey = cityName.cityKey;
@@ -11,7 +11,7 @@ const Today = () => {
 
   const fetchForecast = async (cityKey) => {
     await fetch(
-      `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityKey}?apikey=wfRGVnT6Q4hZtR749uYozqHKCe1FHKE3`
+      `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityKey}?apikey=${apikey}`
     )
       .then((res) => res.json())
       .then((data) => setForecast(data))
