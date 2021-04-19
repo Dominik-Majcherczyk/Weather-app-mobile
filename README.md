@@ -68,12 +68,12 @@ In the project directory, you can run:
 ### Main components
 The application consists of three main views - components such as:
 
-- searching,
-- favourites,
-- infoPanel:
-  - weatherDashboard,
-  - todayForecast,
-  - thisWeekForecast
+- Searching,
+- Favourites,
+- InfoPanel:
+  - WeatherDashboard,
+  - TodayForecast,
+  - ThisWeekForecast
 
 Info panel has three sub-views which are updated with every new location set.
 
@@ -189,4 +189,65 @@ Each favorite location has options to delete from storage, and redirect to the I
 
 #### `InfoPanel.js`
 
+InfoPanel contains a <a href="https://github.com/satya164/react-native-tab-view">TabView<a/> element that has its own built-in routing.
+ 
+ ```js
+ const FirstRoute = () => <Weather />;
 
+ const SecondRoute = () => <ThisWeekForecast />;
+
+ const ThirdRoute = () => <TodayForecast />;
+ ```
+`Lazy loading`
+Callback which returns a custom React Element to render for routes that haven't been rendered yet. Receives an object containing the route as the argument. The lazy prop also needs to be enabled.
+
+```js
+const LazyPlaceholder = ({ route }) => (
+  <View style={styles.loading}>
+    <ActivityIndicator animating={true} color={Colors.red800} />
+  </View>
+);
+```
+#### `Weather.js`
+
+Component that retrieves and displays data from the global state.cityWeatherInfo and the city name and key from state.cityName.
+
+###### Saving favourite
+It also has a button that can add the currently set city in state.cityName to the async storge as a favorite.
+
+```js
+  const addFavourite = () => {
+    storeData(cityName);
+  };
+
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem(`${cityName.cityName}`, JSON.stringify(value));
+    } catch (e) {
+      console.log("error while saving fav zone");
+    }
+  };
+```
+#### `TodayForecast.js` & `ThisWeekForecast`
+
+both components are very similar. They retrieve the current city name and key from the global application state and then send requests to the AccuWeather api to retrieve the forecast object (<a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/hourly/12hour/%7BlocationKey%7D">12-hour</a> and <a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D">5-day</a>). 
+
+```js
+  const fetchForecast = async (cityKey) => {
+    await fetch(
+      `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${apikey}`
+                                             OR
+      `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${apikey}`
+    )
+      .then((res) => res.json())
+      .then((data) => setForecast(data))
+      .catch(() => console.log("error in fetching forecast"));
+  };
+```
+each table element from the forecast object is mapped to display information.
+
+```js
+ forecast.DailyForecasts.map((day) => {...})
+               OR
+ forecast.map((hour) => {...})
+```
