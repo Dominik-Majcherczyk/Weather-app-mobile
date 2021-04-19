@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, StyleSheet, ImageBackground, Text, Image } from "react-native";
 import { FAB } from "react-native-paper";
 import dayImg from "../../img/dayImg.png";
 import nightImg from "../../img/nightImg.png";
 import icons from "./climacons.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 //local storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Weather = () => {
-  const dispatch = useDispatch();
   const cityWeatherInfo = useSelector((state) => state.cityWeatherInfo);
   const cityName = useSelector((state) => state.cityName);
 
@@ -24,6 +23,10 @@ const Weather = () => {
   };
 
   //adding fav zone
+  const addFavourite = () => {
+    storeData(cityName);
+  };
+
   const storeData = async (value) => {
     try {
       await AsyncStorage.setItem(`${cityName.cityName}`, JSON.stringify(value));
@@ -32,11 +35,6 @@ const Weather = () => {
     }
   };
 
-  const addFavourite = () => {
-    storeData(cityName);
-  };
-
-  console.log(cityWeatherInfo.weatherIcon);
   return (
     <View style={styles.scene}>
       <ImageBackground

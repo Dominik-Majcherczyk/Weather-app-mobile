@@ -35,7 +35,7 @@ const Searching = ({ setIndex }) => {
         );
       })
       .then(setIndex(0))
-      .catch(() => console.log("error lat lon"));
+      .catch((error) => console.log(error));
   };
 
   const findCoordinates = () => {

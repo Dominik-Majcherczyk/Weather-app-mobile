@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  ImageBackground,
-  Text,
-  Image,
-  ScrollView,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { FAB, Divider, TouchableRipple, TextInput } from "react-native-paper";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { useDispatch } from "react-redux";
+import { FAB } from "react-native-paper";
 import { setCity } from "../actions/index";
 import { findCityWeatherInfo } from "../reducers/weather";
 //local storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 const Favourites = ({ setIndex }) => {
   const dispatch = useDispatch();
@@ -43,15 +35,15 @@ const Favourites = ({ setIndex }) => {
   };
 
   //clearing storage
-  const clearAll = async () => {
-    try {
-      await AsyncStorage.clear();
-    } catch (e) {
-      console.log(e);
-    }
+  // const clearAll = async () => {
+  //   try {
+  //     await AsyncStorage.clear();
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
 
-    console.log("Done.");
-  };
+  //   console.log("Done.");
+  // };
 
   useEffect(() => {
     keys != null ? getValuesForKeys(keys) : null;
@@ -140,7 +132,7 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     flexDirection: "row",
     flexWrap: "wrap",
   },
@@ -166,7 +158,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: "rgba(221, 221, 221, 0.356)",
     marginTop: 25,
-    marginRight: 25,
     marginBottom: 25,
   },
   smallText: {

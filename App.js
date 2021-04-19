@@ -1,16 +1,6 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  ImageBackground,
-} from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { Appbar } from "react-native-paper";
-import { BottomNavigation, Text } from "react-native-paper";
-import logo from "./img/logo.png";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { BottomNavigation } from "react-native-paper";
 import InfoPanel from "./components/infoPanel/InfoPanel";
 import Searching from "./components/Searching";
 import Favourites from "./components/Favourites";

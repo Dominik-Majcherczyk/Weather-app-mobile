@@ -3,8 +3,8 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import Weather from "./Weather";
-import Forecast from "./Forecast";
-import Today from "./Today";
+import Forecast from "./ThisWeekForecast";
+import Today from "./TodayForecast";
 
 const FirstRoute = () => <Weather />;
 

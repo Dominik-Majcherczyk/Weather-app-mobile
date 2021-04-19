@@ -31,9 +31,7 @@ export const findCityWeatherInfo = (cityKey) => async (dispatch) => {
   )
     .then((res) => res.json())
     .then((data) => dispatch(fetchCityWeatherInfo(data[0])))
-    .catch(() =>
-      console.log("zwrócono error w bloku catch thunka find city weather info")
-    );
+    .catch(() => console.log("error in findCityWeatherInfo"));
 };
 
 export default cityWeatherInfoReducer;
