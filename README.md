@@ -2,7 +2,12 @@
 
 # external specifications
 
-A android weather app aplication
+<<<<<<< HEAD
+
+=======
+
+> > > > > > > bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
+> > > > > > > A android weather app aplication
 
 ## Available Scripts
 
@@ -13,6 +18,12 @@ In the project directory, you can run:
 - expo web or mobile `expo start`
 
 #### Features
+
+<<<<<<< HEAD
+
+=======
+
+> > > > > > > bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
 
 - manual location search, or using geolocation
 - current weather and temperature display
@@ -63,36 +74,48 @@ In the project directory, you can run:
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   };
+<<<<<<< HEAD
 ```
+
+=======
+
+````
+>>>>>>> bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
 
 ## application structure
 
 ### Main components
+<<<<<<< HEAD
 
+=======
+>>>>>>> bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
 The application consists of three main views - components such as:
 
 - Searching,
 - Favourites,
 - InfoPanel:
-  - WeatherDashboard,
-  - TodayForecast,
-  - ThisWeekForecast
+- WeatherDashboard,
+- TodayForecast,
+- ThisWeekForecast
 
 Info panel has three sub-views which are updated with every new location set.
 
 ### State management
+<<<<<<< HEAD
 
+=======
+>>>>>>> bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
 State management for two or more views is handled by <a href="https://react-redux.js.org/introduction/getting-started">Redux</a> and <a href="https://redux.js.org/tutorials/essentials/part-5-async-logic#thunks-and-async-logic">Redux-thunk</a> for async logic, whose logic is located in the `/reducers` folder, and actions in `/actions` folder
 
 Root reducer consists of three reducers
 
 ```js
 const rootReducer = combineReducers({
-  citiesData: cityReducer,
-  cityWeatherInfo: cityWeatherInfoReducer,
-  cityName: cityNameReducer,
+citiesData: cityReducer,
+cityWeatherInfo: cityWeatherInfoReducer,
+cityName: cityNameReducer,
 });
-```
+````
 
 - citiesData stores and updates cities shown during search,
 - cityName stores and updates city name and key (needed to gather data for a given location - weather and forecasts) when you have selected a new location,
@@ -102,6 +125,11 @@ const rootReducer = combineReducers({
 
 For the appearance of the application were used the <a href="https://callstack.github.io/react-native-paper/getting-started.html">React-native-paper<a/> library with <a href="https://github.com/satya164/react-native-tab-view">React-native-tab-view</a> and manually created styles with css. Css was implemented in the form of javascript objects, because only this form of styling is allowed in react-native.
 Sample of css styling:
+<<<<<<< HEAD
+
+=======
+
+> > > > > > > bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
 
 ```js
   import { View, StyleSheet } from "react-native";
@@ -121,6 +149,7 @@ Sample of css styling:
 
 #### `App.js`
 
+<<<<<<< HEAD
 The App component contains the <a href="https://callstack.github.io/react-native-paper/bottom-navigation.html">BottomNavigation</a> element from the React-native-paper library. This element has its own routing that accepts components that are referenced in the bottom navigation of the application.
 
 ```js
@@ -131,7 +160,7 @@ const InfoPanelRoute = () => <InfoPanel />;
 
 In this case, the Searching and Favourites components have additional `setIndex` prop, because in these two components you can select the location for which you want to display the data in InfoPanel (by using `fetchUserLocationInfo(lattitude, longtitude)` function) which have index of 0. `setIndex` in this case it acts as a redirect which sets the index to 0.
 
-```js
+````js
 const fetchUserLocationInfo = async (lat, lon) => {
   await fetch(
     `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${apikey}&q=${lat}%2C${lon}`
@@ -149,14 +178,50 @@ const fetchUserLocationInfo = async (lat, lon) => {
     .then(setIndex(0))
     .catch((error) => console.log(error));
 };
+=======
+The App component contains the <a href="https://callstack.github.io/react-native-paper/bottom-navigation.html">BottomNavigation</a> element from the React-native-paper library.  This element has its own routing that accepts components that are referenced in the bottom navigation of the application.
+
+```js
+  const SearchingRoute = () => <Searching setIndex={setIndex} />;
+  const FavouritesRoute = () => <Favourites setIndex={setIndex} />;
+  const InfoPanelRoute = () => <InfoPanel />;
+````
+
+In this case, the Searching and Favourites components have additional `setIndex` prop, because in these two components you can select the location for which you want to display the data in InfoPanel (by using `fetchUserLocationInfo(lattitude, longtitude)` function) which have index of 0. `setIndex` in this case it acts as a redirect which sets the index to 0.
+
+```js
+  const fetchUserLocationInfo = async (lat, lon) => {
+    await fetch(
+      `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${apikey}&q=${lat}%2C${lon}`
+    )
+      .then((res) => res.json())
+      .then((city) => {
+        dispatch(findCityWeatherInfo(city.Key));
+        dispatch(
+          setCity({
+            cityName: city.LocalizedName,
+            cityKey: city.Key,
+          })
+        );
+      })
+      .then(setIndex(0))
+      .catch((error) => console.log(error));
+  };
+>>>>>>> bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
 ```
 
 It also has an element <a href="https://callstack.github.io/react-native-paper/appbar.html">appbar</a> that as an application header.
 
 #### `Searching.js`
 
+<<<<<<< HEAD
+
+# The location finder component, has an "Input" for entering a city name. The request is sent each time the value changes. Cities are displayed using the AccuWeather <a href="https://developer.accuweather.com/accuweather-locations-api/apis/get/locations/v1/cities/autocomplete">Autocomplete search</a> API, so you don't have to type in the whole name to see the names of cities you might be looking for.
+
 The location finder component, has an "Input" for entering a city name. The request is sent each time the value changes. Cities are displayed using the AccuWeather <a href="https://developer.accuweather.com/accuweather-locations-api/apis/get/locations/v1/cities/autocomplete">Autocomplete search</a> API, so you don't have to type in the whole name to see the names of cities you might be looking for.
-It also has a geolocation function, by pressing a button you can instantly redirect into weather display for current location.
+
+> > > > > > > bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
+> > > > > > > It also has a geolocation function, by pressing a button you can instantly redirect into weather display for current location.
 
 ```js
 import Geolocation from "@react-native-community/geolocation";
@@ -180,6 +245,7 @@ import Geolocation from "@react-native-community/geolocation";
 Component displaying all cities saved in <a href="https://react-native-async-storage.github.io/async-storage/docs/install/">async storage</a>. The component retrieves all cities keys from storage and stores them in its local state `keys`. Values are read for all keys and written to the state `favs`.
 
 ```js
+<<<<<<< HEAD
 const getValuesForKeys = async () => {
   let values;
   try {
@@ -191,11 +257,35 @@ const getValuesForKeys = async () => {
 };
 ```
 
+=======
+const getValuesForKeys = async () => {
+let values;
+try {
+values = await AsyncStorage.multiGet(keys);
+} catch (e) {
+console.log(e);
+}
+setFavs(values);
+};
+
+````
+>>>>>>> bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
 Each favorite location has options to delete from storage, and redirect to the InfoPanel component to gather and display the data again.
 
 #### `InfoPanel.js`
 
 InfoPanel contains a <a href="https://github.com/satya164/react-native-tab-view">TabView<a/> element that has its own built-in routing.
+<<<<<<< HEAD
+
+```js
+const FirstRoute = () => <Weather />;
+
+const SecondRoute = () => <ThisWeekForecast />;
+
+const ThirdRoute = () => <TodayForecast />;
+````
+
+=======
 
 ```js
 const FirstRoute = () => <Weather />;
@@ -205,8 +295,9 @@ const SecondRoute = () => <ThisWeekForecast />;
 const ThirdRoute = () => <TodayForecast />;
 ```
 
-`Lazy loading`
-Callback which returns a custom React Element to render for routes that haven't been rendered yet. Receives an object containing the route as the argument. The lazy prop also needs to be enabled.
+> > > > > > > bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
+> > > > > > > `Lazy loading`
+> > > > > > > Callback which returns a custom React Element to render for routes that haven't been rendered yet. Receives an object containing the route as the argument. The lazy prop also needs to be enabled.
 
 ```js
 const LazyPlaceholder = ({ route }) => (
@@ -216,11 +307,39 @@ const LazyPlaceholder = ({ route }) => (
 );
 ```
 
+<<<<<<< HEAD
+
+=======
+
+> > > > > > > bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
+
 #### `Weather.js`
 
 Component that retrieves and displays data from the global state.cityWeatherInfo and the city name and key from state.cityName.
 
 ###### Saving favourite
+
+<<<<<<< HEAD
+
+It also has a button that can add the currently set city in state.cityName to the async storge as a favorite.
+
+```js
+const addFavourite = () => {
+  storeData(cityName);
+};
+
+const storeData = async (value) => {
+  try {
+    await AsyncStorage.setItem(`${cityName.cityName}`, JSON.stringify(value));
+  } catch (e) {
+    console.log("error while saving fav zone");
+  }
+};
+```
+
+#### `TodayForecast.js` & `ThisWeekForecast`
+
+# both components are very similar. They retrieve the current city name and key from the global application state and then send requests to the AccuWeather api to retrieve the forecast object (<a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/hourly/12hour/%7BlocationKey%7D">12-hour</a> and <a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D">5-day</a>).
 
 It also has a button that can add the currently set city in state.cityName to the async storge as a favorite.
 
@@ -242,6 +361,8 @@ const storeData = async (value) => {
 
 both components are very similar. They retrieve the current city name and key from the global application state and then send requests to the AccuWeather api to retrieve the forecast object (<a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/hourly/12hour/%7BlocationKey%7D">12-hour</a> and <a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D">5-day</a>).
 
+> > > > > > > bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
+
 ```js
   const fetchForecast = async (cityKey) => {
     await fetch(
@@ -255,7 +376,12 @@ both components are very similar. They retrieve the current city name and key fr
   };
 ```
 
-each table element from the forecast object is mapped to display information.
+<<<<<<< HEAD
+
+=======
+
+> > > > > > > bf4def2376b25ef2d7ffae4aadd4e58a6fdeda6c
+> > > > > > > each table element from the forecast object is mapped to display information.
 
 ```js
  forecast.DailyForecasts.map((day) => {...})
