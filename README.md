@@ -1,4 +1,5 @@
-# React-native-app
+# React Native Tab View
 
-Mobile app project for college
-clone and type /npm run android while android studio virtual device is running
+## Demo
+
+<a href="https://media2.giphy.com/media/4cO8yEkYmeGqBbTa8h/giphy.gif" width="360"></a>
