@@ -240,7 +240,7 @@ const storeData = async (value) => {
 
 #### `TodayForecast.js` & `ThisWeekForecast`
 
-both components are very similar. They retrieve the current city name and key from the global application state and then send requests to the AccuWeather api to retrieve the forecast object (<a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/hourly/12hour/%7BlocationKey%7D">12-hour</a> and <a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D">5-day</a>).
+Both components are very similar. They retrieve the current city name and key from the global application state and then send requests to the AccuWeather api to retrieve the forecast object (<a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/hourly/12hour/%7BlocationKey%7D">12-hour</a> and <a href="https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D">5-day</a>).
 
 ```js
   const fetchForecast = async (cityKey) => {
